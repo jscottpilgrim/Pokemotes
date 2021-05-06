@@ -139,8 +139,31 @@ obj.romStartAddress = 0x08000000
 obj.romEndAddress = 0x09FC03FF
 obj.surroundingBlankSpace = 0
 
-obj.box1start = 0x2029368
+obj.boxSearched = false
+function setBoxSearched(b)
+    obj.boxSearched = b
+end
+obj.setBoxSearched = setBoxSearched
+
+obj.box1start = 0x2029324 --0x2029368
+function setBox1Start(p)
+    obj.box1start = p
+end
+obj.setBox1Start = setBox1Start
+
+obj.box1second = 0x2029374
+function setBox1Second(p)
+    obj.box1second = p
+end
+obj.setBox1Second = setBox1Second
+
 obj.boxPositionCount = 420
+obj.boxPokemonDataSize = 80
+
+obj.partyPokemonStart = 0x02024284
+obj.partyPokemonPointers = {
+    0x02024284, 0x20242E8, 0x202434C, 0x20243B0, 0x2024414, 0x2024478
+}
 
 
 obj.maxPokemonId = 410

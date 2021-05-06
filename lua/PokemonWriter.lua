@@ -52,7 +52,7 @@ end
 
 levelsToExp = getLevelsToExp()
 
-function writePokemon(input, pokemonPointer, nextPokemonId)
+function writePokemon(input, pokemonPointer, nextPokemonId, loading, box)
     
     local otId = memory.readdword(pokemonPointer+4)
     local personality = memory.readdword(pokemonPointer)
@@ -66,7 +66,7 @@ function writePokemon(input, pokemonPointer, nextPokemonId)
     -- overwrite the substructres with the input data
     level = memory.readbyte(pokemonPointer+cfg.levelOffset)
     levelUpType = memory.readbyte(cfg.pokemonBaseStatsPointer + (nextPokemonId-1)*28 + 19)
-    InputConverter.convertSubstructures(input, nextPokemonId, level, levelUpType, growth, attacks, ev, misc)
+    InputConverter.convertSubstructures(input, nextPokemonId, level, levelUpType, growth, attacks, ev, misc, loading, box)
     
     -- create new data to write
     local newUnencryptedData = {}
@@ -93,16 +93,20 @@ function writePokemon(input, pokemonPointer, nextPokemonId)
     memory.writeword(pokemonPointer+cfg.checksumOffset, checksum)
     
     -- write nickname
-    for i=1,#input.name do
-        memory.writebyte(pokemonPointer+i+cfg.pokemonNicknameOffset-1, cfg.chars[string.upper(input.name:sub(i,i))])
+    if input.name ~= nil then
+        for i=1,#input.name do
+            memory.writebyte(pokemonPointer+i+cfg.pokemonNicknameOffset-1, cfg.chars[string.upper(input.name:sub(i,i))])
+        end
+        memory.writebyte(pokemonPointer+cfg.pokemonNicknameOffset+#input.name, 0xFF)
     end
-    memory.writebyte(pokemonPointer+cfg.pokemonNicknameOffset+#input.name, 0xFF)
     
     -- Write the species name
-    for i=1,#input.name do
-        memory.writebyte(cfg.pokemonNamesPointer + (cfg.pokemonNameSize+1)*nextPokemonId + i-1, cfg.chars[string.upper(input.name:sub(i,i))])
+    if input.name ~= nil then
+        for i=1,#input.name do
+            memory.writebyte(cfg.pokemonNamesPointer + (cfg.pokemonNameSize+1)*nextPokemonId + i-1, cfg.chars[string.upper(input.name:sub(i,i))])
+        end
+        memory.writebyte(cfg.pokemonNamesPointer + (cfg.pokemonNameSize+1)*nextPokemonId + #input.name, 0xFF)
     end
-    memory.writebyte(cfg.pokemonNamesPointer + (cfg.pokemonNameSize+1)*nextPokemonId + #input.name, 0xFF)
     
     -- write the base stats
     InputConverter.convertBaseStats(input, baseStats)
@@ -145,6 +149,7 @@ function writePokemon(input, pokemonPointer, nextPokemonId)
         memory.writebyte(basePaletteAddress+i-1, input.palette[i])
     end
     
+    -- icons are scuffed
     -- write the icon
     local baseIconAddress = memory.readdword(cfg.iconPointers+nextPokemonId*4)
     for i=0,#input.icon*2-1 do

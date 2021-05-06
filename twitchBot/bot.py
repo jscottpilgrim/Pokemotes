@@ -27,22 +27,24 @@ def sendPingResponse(sock):
     sock.send(PING_RESPONSE.encode("utf-8"))
 
 def handleChatInput(sock, input, queue):
-    try:
-        username = re.search(r"\w+", input).group(0)
-        message = CHAT_MSG.sub("", input).strip()
-        print (username + ":-" + message + "-")
-        com = command.commandFactory(message)
-        startCommandThread(com, (username, sock, queue))        
-    except:
-        libs.chat(sock, "Stop trying to break me BibleThump")
-        return
+    for chatmsg in input.splitlines():
+        try:
+            username = re.search(r"\w+", chatmsg).group(0)
+            message = CHAT_MSG.sub("", chatmsg).strip()
+            print (username + ":-" + message + "-")
+            com = command.commandFactory(message)
+            startCommandThread(com, (username, sock, queue))        
+        except Exception as e:
+            libs.chat(sock, f"error: {e}") #"Stop trying to break me BibleThump")
+            return
 
 def startCommandThread(com, arg):
     Thread(target=com, args=arg).start()
 
 def processChat(sock, queue):
     while True:
-        response = sock.recv(1024).decode("utf-8")
+        try: response = sock.recv(1024).decode("utf-8");
+        except: continue;
         if response == PING_REQUEST:
             sendPingResponse(sock)
         else:
@@ -62,9 +64,14 @@ def startPipeThread(q):
     Thread(target=luaWriter, args=(q,)).start()
 
 def main():
+    print('starting bot')
+    print('making queue')
     q = Queue()
+    print('starting pipe thread')
     startPipeThread(q)
+    print('connecting')
     sock = connect()
+    print('processing chat')
     processChat(sock, q)
 
 if __name__=="__main__":

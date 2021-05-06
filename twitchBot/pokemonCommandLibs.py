@@ -27,6 +27,27 @@ types = {
     "dark": 17
 }
 
+types2 = [
+    "normal",
+    "fighting",
+    "flying",
+    "poison",
+    "ground",
+    "rock",
+    "bug",
+    "ghost",
+    "steel",
+    "???",
+    "fire",
+    "water",
+    "grass",
+    "electric",
+    "psychic",
+    "ice",
+    "dragon",
+    "dark"
+    ]
+
 movePPs = {}
 attackCount = 354
 abilityCount = 77

@@ -1,4 +1,4 @@
-# DoomRed
+# PokEmotes
 Pokemon FireRed rom hack that introduces twitch integration: viewers create their own pokemon which are encountered in game, live.
 
 # Setup Instructions
@@ -7,7 +7,7 @@ Pokemon FireRed rom hack that introduces twitch integration: viewers create thei
 3. Set up config file:
    1. Log into your bot's account (if you don't have an account for your bot, you can either create one or just use your own account).
    2. Generate an [OAuth token](http://twitchapps.com/tmi/) for your bot
-   3. Open DoomRed\twitchBot\cfg.cfg
+   3. Open twitchBot\cfg.cfg
    4. Change the value of NICK to your bot's name (in lowercase)
    5. Change the value of PASS to the OAuth token that was generated (including "oauth:")
    6. Change the value of CHAN to "#" followed by the channel you wish to join (in lowercase). For example, if you wish to join the channel "TwitchChannel", you would change this value to "#twitchchannel"
@@ -17,22 +17,22 @@ Pokemon FireRed rom hack that introduces twitch integration: viewers create thei
 
 # Updating Emotes
 The mappings from emotes to urls are cached. If you want new emotes to appear in game, you have to update the cache. To do so run the following for Twitch emotes and FFZ emotes, respectively (double click on them):
-- DoomRed/updateTwitchEmotes.bat
-- DoomRed/updateFFZ.bat
+- updateTwitchEmotes.bat
+- updateFFZ.bat
 
 # Other Configurations
-In DoomRed\twitchBot\cfg.cfg there are other configurations that can be set related to the gameplay itself:
+In twitchBot\cfg.cfg there are other configurations that can be set related to the gameplay itself:
 - DEFAULT_USER_LIMIT: this the the maximum number of pokemon that a user can have queued at any given time. Set to 0 for no limit.
 - DEFAULT_ALLOW_REPEATS: this tells the game whether or not multiple of the same emote can be queued at the same time.
 - HELP_COOLDOWN_SECONDS: the cooldown time for the help command in seconds (if multiple help commands are given within this time frame, the latter responses will not be displayed)
 
 # How to Play
 ## How to Run the Game
-1. Run DoomRed\runBot.bat (double click on it)
+1. Run runBot.bat (double click on it)
 2. Run VBA-RR and load the ROM
 3. Click Tools -> Lua Scripting -> New Lua Script Window...
 4. In the new window that pops up, click Browse...
-5. Open DoomRed\lua\DoomRed.lua
+5. Open lua\DoomRed.lua
 6. Click Run
 
 ## Once in Game
