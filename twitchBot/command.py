@@ -109,7 +109,7 @@ def commandList(username, sock, queue, text):
 
 def sourceCode(username, sock, queue, text):
     if (now.compareToNow() > cfg.HELP_COOLDOWN_SECONDS):
-        libs.chat(sock, "source: https://github.com/bacowan/DoomRed")
+        libs.chat(sock, "source: https://github.com/jscottpilgrim/Pokemotes")
         now.update()
 
 def tpStart(username, sock, queue, text):

@@ -16,9 +16,9 @@ Pokemon FireRed rom hack that introduces twitch integration: viewers create thei
 6. Obtain a ROM of Pokemon FireRed US V1.1
 
 # Updating Emotes
-The mappings from emotes to urls are cached. If you want new emotes to appear in game, you have to update the cache. To do so run the following for Twitch emotes and FFZ emotes, respectively (double click on them):
-- updateTwitchEmotes.bat
-- updateFFZ.bat
+To update the cache of FFZ emote mappings, double click updateFFZ.bat, or run python twitchBot/updateFFZ.py
+Updating the cache for Twitch emotes is a little more complicated. Because there are so many, updateTwitch.py saves emotes in batches of 1 million. Use combineJsonFiles.py to combine these parts, then rename combined.json to emotes.json
+ - Currently the complete emote file is too large for github. The part files (as of 2021/03/24) are included in the twitchBot/emoteBackups folder
 
 # Other Configurations
 In twitchBot\cfg.cfg there are other configurations that can be set related to the gameplay itself:
@@ -39,14 +39,27 @@ In twitchBot\cfg.cfg there are other configurations that can be set related to t
 ### Playing
 - Each Pokemon that is encountered (wild or during a trainer battle) will be created using from the commands that chat gives (described below). The Pokemon are entered into a queue as they are entered.
 
+### Saving Changed Pokemon
+Emote Pokemon details are saved into lua/savedChanges.lua at the start of each battle (this save includes pokemon changed in that battle.)
+Upon starting the DoomRed.lua script in VBA-RR, pokemon in the party will be restored to their emote versions. If you are saving/loading via savestates, load the savestate before running the script.
+The data for pokemon stored in the box is not stored in a static location. The first and second pokemon stored in box1 must be kept track of manually in order to retain their changes on reload. At the start of each battle, the lua script window will print out 6 lines of numbers (6 lua tables) each within curly braces. These correspond to the pokemon in your party. Copy one of those groups of numbers into lua/savedFirstBox.lua and another into lua/savedFirstBox2.lua then deposit the corresponding party pokemon into the first and second positions of box1. Eg. if you want to deposit the second pokemon from your party into the box, copy the second group of numbers from the lua window.
+
 ### Commands
 - The following commands will add a Pokemon to the queue that looks like the given emote. The options with "type" will give the pokemon that type (case insensitive). Most other stats of the Pokemon are random:
   - !pokemon [emote]
   - !pokemon [emote] [type1]
   - !pokemon [emote] [type1] [type2]
+  - !pokemon [emote] [type1] [type2] [ability] [attack1] [attack2] [attack3] [attack4]
 
-- The following command gives a brief explaination of how to play:
+- The following command gives a brief explanation of how to play:
   - !help
+
+- Additional help commands:
+  - !advanced
+  - !movelist
+  - !abilitylist
+  - !cmdlist
+  - !source
 
 - The following commands are streamer only configuration commands:
   - !setUserLimit [number]
@@ -54,10 +67,15 @@ In twitchBot\cfg.cfg there are other configurations that can be set related to t
   - !toggleRepeats
     - Flips the value of ALLOW_REPEATS (explained above)
 
+### TwitchPlaysPokemon
+- Use these commands to enable/disable 'Twitch Plays' mode where chat can control the game via text in chat (a, b, left, right, up, down, start, select)
+  - !tpstart
+  - !tpstop
+
 ### Gotchas
-This game is still in a beta phase, so there are a number of improvements to be made. The comprehensive list of known issues is listed under Issues, but here are some important ones to be aware of:
-- Gifted Pokemon have not been implemented. That means that your first Pokemon will be a regular Pokemon. It will actually change species after a while.
-- The game will crash after meeting a large number of Pokemon. I am unsure how many, but the first time it crashed on me was after playing for 8 straight hours.
+- Gifted Pokemon have not been implemented. That means that your first Pokemon will be a regular Pokemon.
+- Gamegets glitchy sometimes graphically.
+- Emotes sometimes evolve into other emotes or pokemon. Bug or feature? You decide!
 
 # Troubleshooting
 - If double clicking on any of the python scripts doesn't work, try the following:
