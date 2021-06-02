@@ -16,7 +16,6 @@ ffzUrl = "https://cdn.frankerfacez.com/emoticon/{}/{}"
 currentDir = os.path.dirname(__file__)
 twitchEmotesFilePath = os.path.join(currentDir, 'emotes.json')
 ffzEmotesFilePath = os.path.join(currentDir, 'ffz.json')
-offlineEmotesFilePath = os.path.join(currentDir, 'offlineEmotes.json')
 
 with open(twitchEmotesFilePath) as file:
     data = json.load(file)
@@ -24,9 +23,6 @@ codeToId = {i["code"]: i["id"] for i in data}
 
 with open(ffzEmotesFilePath) as ffzFile:
     ffzCodeData = json.load(ffzFile)
-
-with open(offlineEmotesFilePath) as offEmotesFile:
-    offlineEmotes = json.load(offEmotesFile)
 
 def tile(im):
     tiled = []
@@ -90,13 +86,6 @@ def downloadFfzEmote(emoteName):
             return urllib.request.urlopen(ffzUrl.format(emoteId, 2)).read()
         except urllib.error.HTTPError: # some ffz emotes don't have a x2 res
             return urllib.request.urlopen(ffzUrl.format(emoteId, 1)).read()
-
-def getOfflineEmote(emoteName):
-    eCode = emoteName[6:].lower()
-    if eCode in offlineEmotes:
-        return open(offlineEmotes[eCode], "rb").read()
-    else:
-        return None
 
 def downloadEmote(emoteName):
     if emoteName in ffzCodeData:
