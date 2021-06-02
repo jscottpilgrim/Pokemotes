@@ -1,0 +1,24 @@
+!pokemote <emote> <type1> <type2> <ability> <attack1> <attack2> <attack3 <attack4>
+
+All arguments other than <emote> are optional.
+Any optional field left empty will be randomly generated.
+
+<emote> can be any ffz or twitch emote (global or channel sub emote)
+Emotes uploaded after March 2021 currently not included.
+
+Type fields must be typed out as a single word eg. fire flying
+If you want to specify ability or moveset, you must have a value for both <type1> and <type2>.
+For a single type pokemon, enter the same type for both fields eg. fire fire
+
+Ability must be entered as a number.
+Wonder Guard is restricted.
+Chose the number from this list of abilities: https://github.com/jscottpilgrim/Pokemotes/blob/master/abilities.csv
+
+Attacks must be entered as a number.
+Chose the number from this list of moves: https://github.com/jscottpilgrim/Pokemotes/blob/master/moveset.csv
+
+Generated pokemon will always have four moves. If fewer than four moves are specified, the remaining moves will be randomly selected.
+
+Example:
+This will enter a peepoHappy pokemote of type grass electric with Color Change ability and move set of Jump Kick, Thrash, Mega Drain, Acid Armor
+!pokemote peepoHappy grass electric 16 26 37 72 151

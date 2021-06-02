@@ -89,17 +89,17 @@ def helpCommand(username, sock, queue, text):
 
 def advancedHelp(username, sock, queue, text):
     if (now.compareToNow() > cfg.HELP_COOLDOWN_SECONDS):
-        libs.chat(sock, "Advanced pokemote help: https://docs.google.com/document/d/167L5oOEZy9f0MskjF1gJsK8YS5TsP63fVD51f5jhNVo/edit?usp=sharing")
+        libs.chat(sock, "Advanced pokemote help: https://github.com/jscottpilgrim/Pokemotes/blob/master/advancedCommandHelp.txt")
         now.update()
 
 def moveList(username, sock, queue, text):
     if (now.compareToNow() > cfg.HELP_COOLDOWN_SECONDS):
-        libs.chat(sock, "move list: https://github.com/bacowan/DoomRed/blob/master/moveset.csv")
+        libs.chat(sock, "move list: https://github.com/jscottpilgrim/Pokemotes/blob/master/moveset.csv")
         now.update()
 
 def abilityList(username, sock, queue, text):
     if (now.compareToNow() > cfg.HELP_COOLDOWN_SECONDS):
-        libs.chat(sock, "ability list: https://github.com/bacowan/DoomRed/blob/master/abilities.csv")
+        libs.chat(sock, "ability list: https://github.com/jscottpilgrim/Pokemotes/blob/master/abilities.csv")
         now.update()
 
 def commandList(username, sock, queue, text):

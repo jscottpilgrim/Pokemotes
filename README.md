@@ -1,4 +1,4 @@
-# PokEmotes
+# Pokemotes
 Pokemon FireRed rom hack that introduces twitch integration: viewers create their own pokemon which are encountered in game, live.
 
 # Setup Instructions
@@ -74,7 +74,7 @@ The data for pokemon stored in the box is not stored in a static location. The f
 
 ### Gotchas
 - Gifted Pokemon have not been implemented. That means that your first Pokemon will be a regular Pokemon.
-- Gamegets glitchy sometimes graphically.
+- Game gets glitchy sometimes graphically.
 - Emotes sometimes evolve into other emotes or pokemon. Bug or feature? You decide!
 
 # Troubleshooting
